@@ -1,0 +1,29 @@
+.controls {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 16px;
+  color: #f5e6d3;
+
+  label {
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+  }
+
+  input {
+    background: #1a120d;
+    border: 1px solid #ff9f43;
+    color: white;
+    padding: 4px;
+    border-radius: 6px;
+  }
+
+  button {
+    background: linear-gradient(145deg, #ff7a18, #ffb347);
+    border: none;
+    padding: 8px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+}
