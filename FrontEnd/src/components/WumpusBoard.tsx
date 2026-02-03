@@ -34,8 +34,10 @@ export default function WumpusBoard() {
   const [world, setWorld] = useState<Cell[][]>(() =>
     createWorld(DEFAULT_CONFIG)
   );
+  const [isPlaying, setIsPlaying] = useState(true);
   const [result, setResult] = useState<ActionResult | null>(null);
   const [agent, setAgent] = useState<AgentState | null>(null);
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const dispatch = useAppDispatch();
 
@@ -75,6 +77,7 @@ export default function WumpusBoard() {
 
       if (success || died) {
         dispatch(addData(data));
+        setIsDisabled(true);
       }
     });
 
@@ -101,33 +104,25 @@ export default function WumpusBoard() {
         />
         <div className="sim-controls">
           <button
-            className="run"
-            onClick={() => {
-              setResult(null);
-              socket.emit("start");
-            }}
-            disabled={!agent}
-          >
-            ▶ Run
-          </button>
-          <button
             className="prev"
             onClick={() => {
               setResult(null);
               socket.emit("previous");
             }}
-            disabled={!agent}
+            disabled={!agent || (agent.pos[0] === 0 && agent.pos[1] === 0)}
           >
             Prev ⏮
           </button>
           <button
             className="stop"
             onClick={() => {
+              setIsPlaying(!isPlaying);
               setResult(null);
-              socket.emit("stop");
+              isPlaying ? socket.emit("start") : socket.emit("stop");
             }}
+            disabled={!agent || isDisabled}
           >
-            ⏹ Stop
+            {isPlaying ? "▶ Run" : "⏹ Stop"}
           </button>
           <button
             className="step"
@@ -135,7 +130,7 @@ export default function WumpusBoard() {
               setResult(null);
               socket.emit("step");
             }}
-            disabled={!agent}
+            disabled={!agent || isDisabled}
           >
             ⏭ Next
           </button>
