@@ -209,7 +209,7 @@ class Agent:
             p = base * (math.log2(support + 1) ** 1.1)
 
             if self.is_corner(i, j):
-                p *= 1.45   
+                p *= 1.6  
 
             return min(cap, p)
 
