@@ -57,15 +57,19 @@ const HistoryResult = ({ show, setShow }: IProps) => {
     >
       <Card style={{ marginBottom: 20 }}>
         <Row gutter={24} align="middle">
-          <Col span={8}>
+          <Col span={6}>
             <Statistic title="Total Runs" value={totalRuns} />
           </Col>
 
-          <Col span={8}>
+          <Col span={6}>
             <Statistic title="Wins" value={wins} />
           </Col>
 
-          <Col span={8}>
+          <Col span={6}>
+            <Statistic title="Loses" value={totalRuns - wins} />
+          </Col>
+
+          <Col span={6}>
             <Statistic title="Win Rate" value={winRate} suffix="%" />
           </Col>
         </Row>
