@@ -1,4 +1,4 @@
-import { WorldConfig, Cell } from "@/types/backend";
+import { WorldConfig, Cell } from "@/types/type";
 
 /* ───────────────── config ───────────────── */
 

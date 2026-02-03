@@ -1,4 +1,4 @@
-import { ActionResult } from "@/types/backend";
+import { ActionResult } from "@/types/type";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface IState {

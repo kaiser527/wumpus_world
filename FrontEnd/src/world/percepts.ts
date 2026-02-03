@@ -1,4 +1,4 @@
-import { Cell } from "@/types/backend";
+import { Cell } from "@/types/type";
 import { neighbors } from "./world";
 
 export function getPercepts(world: Cell[][], i: number, j: number) {

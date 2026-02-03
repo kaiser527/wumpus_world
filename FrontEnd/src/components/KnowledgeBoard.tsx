@@ -1,4 +1,4 @@
-import { ActionResult, AgentState } from "@/types/backend";
+import { ActionResult, AgentState } from "@/types/type";
 import HistoryResult from "./HistoryResult";
 import "@/styles/knowledge.scss";
 import pit_image from "@/assets/images/pit.png";

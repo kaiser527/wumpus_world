@@ -1,5 +1,5 @@
 import "@/styles/controls.scss";
-import { WorldConfig } from "@/types/backend";
+import { WorldConfig } from "@/types/type";
 
 type Props = {
   config: WorldConfig;

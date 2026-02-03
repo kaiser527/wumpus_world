@@ -1,4 +1,4 @@
-import { WorldConfig } from "@/types/backend";
+import { WorldConfig } from "@/types/type";
 import { DEFAULT_CONFIG } from "@/world/world";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 

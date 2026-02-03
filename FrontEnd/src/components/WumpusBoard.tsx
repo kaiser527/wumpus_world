@@ -10,7 +10,7 @@ import {
   arrow_up_image,
 } from "@/world/images";
 import "@/styles/world.scss";
-import { ActionResult, AgentState, Cell, WorldConfig } from "@/types/backend";
+import { ActionResult, AgentState, Cell, WorldConfig } from "@/types/type";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { setConfig } from "@/redux/slice/configSlice";
 import { io } from "socket.io-client";

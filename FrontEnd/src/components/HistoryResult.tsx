@@ -1,5 +1,5 @@
 import { useAppSelector } from "@/redux/hooks";
-import { ActionResult } from "@/types/backend";
+import { ActionResult } from "@/types/type";
 import {
   Modal,
   List,
