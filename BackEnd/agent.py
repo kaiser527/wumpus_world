@@ -133,7 +133,6 @@ class Agent:
                     cnf.append([-W])
 
                     nbrs = list(self.neighbors(i, j))
-
                     pits = [self.pit_var(x, y) for x, y in nbrs]
                     wums = [self.wumpus_var(x, y) for x, y in nbrs]
 
@@ -209,7 +208,7 @@ class Agent:
             p = base * (math.log2(support + 1) ** 1.1)
 
             if self.is_corner(i, j):
-                p *= 1.6  
+                p *= 1.6   
 
             return min(cap, p)
 
