@@ -1,5 +1,6 @@
 import { useAppSelector } from "@/redux/hooks";
 import { ActionResult } from "@/types/type";
+import { Pie } from "@ant-design/plots";
 import {
   Modal,
   List,
@@ -23,7 +24,7 @@ interface IProps {
 
 type FilterType = "all" | "success" | "death";
 
-const PAGE_SIZE = 3;
+const PAGE_SIZE = 4;
 
 const HistoryResult = ({ show, setShow }: IProps) => {
   const results: (ActionResult & { runIndex: number })[] = useAppSelector(
@@ -46,6 +47,29 @@ const HistoryResult = ({ show, setShow }: IProps) => {
     }
     return true; // all
   });
+
+  const config = {
+    data: [
+      { type: "Wins", value: wins },
+      { type: "Loses", value: totalRuns - wins },
+    ],
+    angleField: "value",
+    colorField: "type",
+    radius: 0.6,
+    label: {
+      text: "value",
+      style: {
+        fontWeight: "bold",
+      },
+    },
+    legend: {
+      color: {
+        title: false,
+        position: "right",
+        rowPadding: 5,
+      },
+    },
+  };
 
   return (
     <Modal
@@ -79,6 +103,10 @@ const HistoryResult = ({ show, setShow }: IProps) => {
           status={winRate >= 50 ? "success" : "normal"}
           style={{ marginTop: 16 }}
         />
+
+        <div style={{ marginBottom: -115, marginTop: -10 }}>
+          <Pie {...config} />
+        </div>
       </Card>
       <Card size="small" style={{ marginBottom: 16 }}>
         <Space>
@@ -106,6 +134,10 @@ const HistoryResult = ({ show, setShow }: IProps) => {
         <List
           dataSource={[...filteredResults].reverse()}
           itemLayout="vertical"
+          grid={{
+            gutter: 16,
+            column: 2,
+          }}
           pagination={{
             current: currentPage,
             pageSize: PAGE_SIZE,
@@ -119,48 +151,51 @@ const HistoryResult = ({ show, setShow }: IProps) => {
             const success = item.gold_found && item.returned_home;
 
             return (
-              <Card
-                key={index}
-                style={{ marginBottom: 16 }}
-                variant="outlined"
-                title={
-                  <Space>
-                    {success ? (
-                      <Tag color="green">🏆 SUCCESS</Tag>
-                    ) : (
-                      <Tag color="red">☠️ FAILED</Tag>
-                    )}
-                    <span>Run #{item.runIndex}</span>
-                  </Space>
-                }
-              >
-                <Space size="large" wrap>
-                  <Tag color="blue">Steps: {item.steps}</Tag>
-                  <Tag color="purple">Arrows left: {item.arrows_left}</Tag>
-                  <Tag color="gold">Gold: {item.gold_found ? "✔" : "✘"}</Tag>
-                  <Tag color="cyan">
-                    Returned home: {item.returned_home ? "✔" : "✘"}
-                  </Tag>
-                </Space>
-
-                <Divider style={{ margin: "12px 0" }} />
-
-                <Space size="large" wrap>
-                  <Tag color="volcano">Wumpus killed: {item.wumpus_killed}</Tag>
-                  <Tag color="geekblue">
-                    Total arrows collected: {item.total_arrows_collected}
-                  </Tag>
-                </Space>
-
-                {item.death_cause && (
-                  <>
-                    <Divider style={{ margin: "12px 0" }} />
-                    <Tag color="red">
-                      Death cause: {item.death_cause.toUpperCase()}
+              <List.Item>
+                <Card
+                  key={index}
+                  variant="outlined"
+                  title={
+                    <Space>
+                      {success ? (
+                        <Tag color="green">🏆 SUCCESS</Tag>
+                      ) : (
+                        <Tag color="red">☠️ FAILED</Tag>
+                      )}
+                      <span>Run #{item.runIndex}</span>
+                    </Space>
+                  }
+                >
+                  <Space size="large" wrap>
+                    <Tag color="blue">Steps: {item.steps}</Tag>
+                    <Tag color="purple">Arrows left: {item.arrows_left}</Tag>
+                    <Tag color="gold">Gold: {item.gold_found ? "✔" : "✘"}</Tag>
+                    <Tag color="cyan">
+                      Returned home: {item.returned_home ? "✔" : "✘"}
                     </Tag>
-                  </>
-                )}
-              </Card>
+                  </Space>
+
+                  <Divider style={{ margin: "12px 0" }} />
+
+                  <Space size="large" wrap>
+                    <Tag color="volcano">
+                      Wumpus killed: {item.wumpus_killed}
+                    </Tag>
+                    <Tag color="geekblue">
+                      Total arrows collected: {item.total_arrows_collected}
+                    </Tag>
+                  </Space>
+
+                  {item.death_cause && (
+                    <>
+                      <Divider style={{ margin: "12px 0" }} />
+                      <Tag color="red">
+                        Death cause: {item.death_cause.toUpperCase()}
+                      </Tag>
+                    </>
+                  )}
+                </Card>
+              </List.Item>
             );
           }}
         />
